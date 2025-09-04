@@ -1,56 +1,60 @@
-Baban Mihai-Emilian 324CD
+# HTTP Library Client
 
-Pentru a implementa m-am folosit de scheltul din laboratorul 7.
+**Author:** Baban Mihai-Emilian (324CD)
 
-Am folosit doua structuri:
+## Project Overview
 
-- struct chat_packet care retine informatii importante dintr-un pachet
+This project implements a chat server and subscriber clients using TCP and UDP sockets in C. The system enables real-time communication between multiple clients, demonstrating mastery in socket programming, event-driven architecture, and resource management.
 
- trimis catre subscriber sau server
+Originally based on the laboratory 7 skeleton code, the project expands on it to deliver a robust client-server communication model.
 
-- struct client in care am retinut id-ul, socket-ul si topicul clientului
+## Architecture
 
-SERVER.C
+The system consists of two main components:
 
--parsez port-ul ca un numar
+- **Server (`server.c`)**: Manages TCP and UDP connections, maintaining a list of clients and topics, and efficiently handles client subscriptions and message delivery.
+- **Subscriber (`subscriber.c`)**: Acts as a client that connects to the server, subscribes/unsubscribes to topics, and receives messages.
 
--deschid 2 socketi pentru clientul tcp si clientul udp
+### Core Data Structures
 
--asociez adresa serverului folosind bind
+- `struct chat_packet`: Stores essential information about a packet sent to subscribers or the server.
+- `struct client`: Stores client-specific data such as ID, socket, and topic subscriptions.
 
+## Server Features
 
-void run_chat_multi_server(int tcp_sock, int udp_sock):
+- Parses the port number and initializes two sockets (TCP and UDP).
+- Binds the server address and listens for incoming TCP connections.
+- Uses the `poll` function to efficiently monitor and process events across multiple sockets.
+- Dynamically manages connected clients and their subscriptions.
+- Handles new and existing client connections, ensuring seamless communication.
+- Receives messages from clients using a custom `recv_all()` function.
+- Gracefully handles client disconnections and resource cleanup.
 
+## Subscriber Features
 
--folosesc funcția poll pentru a asculta
+- Establishes a TCP connection to the server.
+- Uses an event loop with `poll()` to listen for both keyboard input and server messages.
+- Supports the following commands:
+  - `subscribe <topic>`: Subscribe to a topic for receiving messages.
+  - `unsubscribe <topic>`: Unsubscribe from a topic.
+  - `exit`: Disconnects from the server and exits the client.
 
- și procesa evenimentele pe socketurile asociate clienților.
+## Why Recruiters Should Care
 
--aloc memorie pentru clienții conectați 
+- **Socket Programming:** Demonstrates proficiency in both TCP and UDP protocols.
+- **Event-Driven Design:** Efficient handling of multiple clients using `poll`.
+- **Robustness:** Effective management of client connections and topic subscriptions.
+- **Clean Architecture:** Separation of concerns between server and client modules.
+- **Scalability:** Designed to handle multiple simultaneous connections.
+- **Code Quality:** Emphasis on resource management and clean error handling.
 
--aplic functia listen pe socket-ul tcp asteptand conexiuni de la clientii tcp
+## How to Run
 
--atunci când un client se conectează, serverul verifică dacă acesta
+1. Compile the server and subscriber source files.
+2. Start the server by specifying the port number.
+3. Launch one or more subscriber clients and connect to the server.
+4. Use the supported commands to interact with the chat system.
 
- este un client nou sau unul existent deja.
+---
 
--folosesc funcția recv_all() pentru a primi pachetele pe care clienții le trimit.
-
--atunci când un client se deconectează, serverul întrerupe 
-
- conexiunea și scoate socketul de client din multimea de citire.
-
-
-SUBSCRIBER.C
-
-
-
--deschidem socket-ul tcp
-
--intr-o buclă infinită, clientul așteaptă evenimente 
-
- de la tastatură și de la server, folosind funcția poll().
-
--dacă se introduce o comandă la tastatură, aceasta este
- prelucrată și apoi trimisă la server 
--comenzile posibile sunt subscribe, unsubscribe și exit.
+*For more details, refer to the source code and comments within each file.*
