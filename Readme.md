@@ -56,5 +56,3 @@ The system consists of two main components:
 4. Use the supported commands to interact with the chat system.
 
 ---
-
-*For more details, refer to the source code and comments within each file.*
