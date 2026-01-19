@@ -1,4 +1,4 @@
-# HTTP Library Client
+# TCP/UDP Client-Server Chat Implementation
 
 **Author:** Baban Mihai-Emilian (324CD)
 
