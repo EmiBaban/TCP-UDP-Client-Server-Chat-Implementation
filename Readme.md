@@ -39,7 +39,7 @@ The system consists of two main components:
   - `unsubscribe <topic>`: Unsubscribe from a topic.
   - `exit`: Disconnects from the server and exits the client.
 
-## Why Recruiters Should Care
+## Implementation Highlights
 
 - **Socket Programming:** Demonstrates proficiency in both TCP and UDP protocols.
 - **Event-Driven Design:** Efficient handling of multiple clients using `poll`.
